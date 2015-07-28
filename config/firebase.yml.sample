@@ -1,2 +1,1 @@
-defaults: &defaults
-  firebase_url: 'https://blistering-inferno-5605.firebaseio.com/'
+firebase_url: 'YOUR FIREBASE URL'
