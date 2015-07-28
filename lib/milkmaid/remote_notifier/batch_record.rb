@@ -5,15 +5,16 @@ module Milkmaid
     class BatchRecord
       attr_accessor :name, :guid, :duration, :base_temperature, :batch_size, :status, :record
 
-      def initialize(batch_data = {})
+      def initialize
         Parse.init(
           :application_id => 'JxuqdmEaI0DYwxcDV1imv2S64PWMLNjJq3wpGcVC',
           :api_key => 'dsEh8Uqc3gwT9kYcG6OvR9W6pRlzcZlG6X9NeClS'
         )
+      end
 
+      def start(batch_data = {})
         batch_data.each { |key, value| send("#{key}=", value) }
         @status = 'Started'
-
         self.create_remote_record
       end
 

@@ -1,4 +1,5 @@
-require 'parse-ruby-client'
+require 'firebase'
+require 'yaml'
 
 module Milkmaid
   module FirebaseNotifier
@@ -7,9 +8,11 @@ module Milkmaid
 
       CACHE_THRESHOLD = 20
 
-      def initialize(batch_data = {})
-        @firebase = ::Firebase::Client.new('https://blistering-inferno-5605.firebaseio.com/')
+      def initialize
+        @firebase = ::Firebase::Client.new(::YAML.load_file(File.join(CONFIG_DIR, 'firebase.yml'))['firebase_url'])
+      end
 
+      def start(batch_data = {})
         batch_data.each { |key, value| send("#{key}=", value) }
         @status = 'Started'
 
@@ -28,12 +31,12 @@ module Milkmaid
       end
 
       def add_event(event_type, data = 0)
-        events << ::Milkmaid::FirebaseNotifier::Event.new(name: event_name_from_type(event_type), data: data, timestamp: timestamp)
+        events << ::Milkmaid::FirebaseNotifier::Event.new(event_name_from_type(event_type), data, timestamp)
         return if cache_event(event_type)
         send_events!
       end
 
-      def cache_event
+      def cache_event(event_type)
         return false unless event_type == :temperature
         return false if @events.length < CACHE_THRESHOLD
         true
@@ -58,7 +61,7 @@ module Milkmaid
 
       def send_events!
         events.each do |event|
-          @firebase.update("/batches/#{guid}/events", event)
+          @firebase.push("/batches/#{guid}/events", event.to_h)
         end
 
         @events = []
@@ -69,7 +72,7 @@ module Milkmaid
       end
     end
 
-    class Event < Struct(:name, :data, :timestamp)
+    class Event < Struct.new(:name, :data, :timestamp)
     end
   end
 end

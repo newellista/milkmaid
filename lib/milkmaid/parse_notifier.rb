@@ -7,14 +7,17 @@ module Milkmaid
       batch_record.complete!
     end
 
+    def batch_record
+      @batch_record ||= ::Milkmaid::FirebaseNotifier::BatchRecord.new
+    end
+
     def batch_started(batch_data = {})
       super(batch_data)
-      batch_record = ::Milkmaid::RemoteNotifier::BatchRecord.new(batch_data)
+      batch_record.start(batch_data)
     end
 
     def log_temperature(temperature)
       super(temperature)
-      binding.pry
       batch_record.add_event(:temperature, temperature)
     end
 
