@@ -9,7 +9,7 @@ module MilkMaid
       CACHE_THRESHOLD = 20
 
       def initialize
-        @firebase = ::Firebase::Client.new(::YAML.load_file(File.join(CONFIG_DIR, 'firebase.yml'))['firebase_url'])
+        @firebase = ::Firebase::Client.new(::YAML.load_file(File.join(CONFIG_DIR, '.firebase.yml'))['firebase_url'])
       end
 
       def start(batch_data = {})
