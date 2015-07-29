@@ -7,7 +7,7 @@ module Milkmaid
     def initialize
       @sensor = Temperature.new
 
-      fail ::Milkmaid::SensorException.new 'Sensor not available' unless @sensor.display
+      fail ::Milkmaid::SensorException.new 'Sensor not available' unless @sensor.name
     end
 
     def name
@@ -16,7 +16,7 @@ module Milkmaid
     end
 
     def reading
-      return "No sensor attached" unless @sensor.display
+      return "Reading: No sensor attached" unless @sensor.display
       @sensor.reading
     end
   end
