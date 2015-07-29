@@ -1,8 +1,8 @@
 require 'thor'
 
-module Milkmaid
+module MilkMaid
   class CLI < Thor
-    desc 'monitor_batch BATCH_NAME', "Start Monitoring a batch"
+    desc 'monitor_batch', "Start Monitoring a batch"
     long_desc <<-DESC
 
     `monitor_batch BATCH_NAME` will create a batch called BATCH_NAME
@@ -23,24 +23,24 @@ module Milkmaid
 
       sensor = get_sensor(sensor_type)
       notifier = get_logger(logger_type)
-      batch = ::Milkmaid::Batch.new(name: batch_name, temperature: temperature, duration: duration, notifier: notifier, sensor: sensor)
+      batch = ::MilkMaid::Batch.new(name: batch_name, temperature: temperature, duration: duration, notifier: notifier, sensor: sensor)
 
       batch.start
-    rescue ::Milkmaid::SensorException => e
+    rescue ::MilkMaid::SensorException => e
       puts e.message
     end
 
     no_commands do
       def get_sensor(sensor_type)
-        sensor_type ? ::Milkmaid::TemperatureSensor.new : ::Milkmaid::MockTemperatureSensor.new(options[:temperature].to_i - 20, options[:temperature].to_i + 30)
+        sensor_type ? ::MilkMaid::TemperatureSensor.new : ::MilkMaid::MockTemperatureSensor.new(options[:temperature].to_i - 20, options[:temperature].to_i + 30)
       end
 
       def get_logger(logger_type)
         case logger_type.upcase
         when 'CONSOLE'
-          ::Milkmaid::ConsoleNotifier.new
+          ::MilkMaid::ConsoleNotifier.new
         when 'WEB'
-          ::Milkmaid::ParseNotifier.new
+          ::MilkMaid::ParseNotifier.new
         end
       end
     end

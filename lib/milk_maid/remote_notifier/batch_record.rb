@@ -1,6 +1,6 @@
 require 'parse-ruby-client'
 
-module Milkmaid
+module MilkMaid
   module RemoteNotifier
     class BatchRecord
       attr_accessor :name, :guid, :duration, :base_temperature, :batch_size, :status, :record
@@ -31,7 +31,7 @@ module Milkmaid
       end
 
       def add_event(event_type, data = 0)
-        events << ::Milkmaid::RemoteNotifier::Event.new(name: event_name_from_type(event_type), data: data, timestamp: timestamp)
+        events << ::MilkMaid::RemoteNotifier::Event.new(name: event_name_from_type(event_type), data: data, timestamp: timestamp)
         return if event_type == :temperature
         send_events!
       end

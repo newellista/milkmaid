@@ -1,13 +1,13 @@
 require 'w1temp'
 
-module Milkmaid
+module MilkMaid
   class SensorException < RuntimeError; end
 
   class TemperatureSensor
     def initialize
       @sensor = Temperature.new
 
-      fail ::Milkmaid::SensorException.new 'Sensor not available' unless @sensor.name
+      fail ::MilkMaid::SensorException.new 'Sensor not available' unless @sensor.name
     end
 
     def name

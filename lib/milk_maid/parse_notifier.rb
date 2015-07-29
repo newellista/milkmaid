@@ -1,5 +1,5 @@
-module Milkmaid
-  class ParseNotifier < ::Milkmaid::ConsoleNotifier
+module MilkMaid
+  class ParseNotifier < ::MilkMaid::ConsoleNotifier
     attr_accessor :batch_record
 
     def batch_completed
@@ -8,7 +8,7 @@ module Milkmaid
     end
 
     def batch_record
-      @batch_record ||= ::Milkmaid::FirebaseNotifier::BatchRecord.new
+      @batch_record ||= ::MilkMaid::FirebaseNotifier::BatchRecord.new
     end
 
     def batch_started(batch_data = {})

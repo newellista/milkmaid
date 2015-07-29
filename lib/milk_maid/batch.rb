@@ -1,4 +1,4 @@
-module Milkmaid
+module MilkMaid
   class Batch
     attr_accessor :name, :batch_guid, :temperature, :duration, :size, :notifier, :sensor
 

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'milkmaid/version'
+require 'milk_maid/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "milk_maid"
-  spec.version       = Milkmaid::VERSION
+  spec.version       = MilkMaid::VERSION
   spec.authors       = ["Steve Newell"]
   spec.email         = ["steve.newell@mx.com"]
 

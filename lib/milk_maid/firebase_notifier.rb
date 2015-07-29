@@ -1,5 +1,5 @@
-module Milkmaid
-  class FirebaseNotifier < ::Milkmaid::ConsoleNotifier
+module MilkMaid
+  class FirebaseNotifier < ::MilkMaid::ConsoleNotifier
     attr_accessor :batch_record
 
     def batch_completed
@@ -9,7 +9,7 @@ module Milkmaid
 
     def batch_started(batch_data = {})
       super(batch_data)
-      batch_record = ::Milkmaid::FirebaseNotifier::BatchRecord.new(batch_data)
+      batch_record = ::MilkMaid::FirebaseNotifier::BatchRecord.new(batch_data)
     end
 
     def log_temperature(temperature)

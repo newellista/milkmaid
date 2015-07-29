@@ -1,4 +1,4 @@
-module Milkmaid
+module MilkMaid
   class ConsoleNotifier
     def batch_completed
       puts "#{Time.now} - Batch Completed"

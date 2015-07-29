@@ -1,7 +1,7 @@
 require 'firebase'
 require 'yaml'
 
-module Milkmaid
+module MilkMaid
   module FirebaseNotifier
     class BatchRecord
       attr_accessor :name, :guid, :duration, :base_temperature, :batch_size, :status, :record
@@ -31,7 +31,7 @@ module Milkmaid
       end
 
       def add_event(event_type, data = 0)
-        events << ::Milkmaid::FirebaseNotifier::Event.new(event_name_from_type(event_type), data, timestamp)
+        events << ::MilkMaid::FirebaseNotifier::Event.new(event_name_from_type(event_type), data, timestamp)
         return if cache_event(event_type)
         send_events!
       end
