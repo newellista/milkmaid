@@ -11,12 +11,12 @@ module MilkMaid
     end
 
     def name
-      return "No sensor attached" unless @sensor.display
+      return "No sensor attached" unless @sensor.name
       @sensor.name
     end
 
     def reading
-      return "Reading: No sensor attached" unless @sensor.display
+      return "Reading: No sensor attached" unless @sensor.reading
       @sensor.reading
     end
   end
