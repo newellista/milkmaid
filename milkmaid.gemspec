@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'milkmaid/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "milkmaid"
+  spec.name          = "milk_maid"
   spec.version       = Milkmaid::VERSION
   spec.authors       = ["Steve Newell"]
   spec.email         = ["steve.newell@mx.com"]
