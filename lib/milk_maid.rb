@@ -7,7 +7,7 @@ require 'milk_maid/firebase_notifier/batch_record'
 require 'milk_maid/temperature_sensor'
 require 'milk_maid/version'
 
-CONFIG_DIR = File.join(File.dirname(__FILE__), '..', 'config')
+CONFIG_DIR = File.join('.')
 
 module MilkMaid
 end
