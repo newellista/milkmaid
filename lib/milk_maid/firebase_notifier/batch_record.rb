@@ -1,5 +1,4 @@
 require 'firebase'
-require 'pry'
 require 'yaml'
 
 module MilkMaid
