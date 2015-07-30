@@ -9,13 +9,13 @@ module MilkMaid
     and begin monitoring it for 30 minutes
 
     DESC
-    option :batch_name, :type => :string, :required => :true, :aliases => "-b"
+    option :batch_name, :type => :string, :aliases => "-b"
     option :temperature, :type => :numeric, :required => :false, :default => 30, :aliases => '-t'
     option :duration, :type => :numeric, :required => false, :default => 30, :aliases => '-d'
     option :logger, :type => :string, :required => false, :default => 'Console', :aliases => '-l'
     option :sensor, :type => :boolean, :required => false, :default => true, :aliases => '-s'
     def monitor_batch
-      batch_name = options[:batch_name]
+      batch_name = options.fetch(:batch_name, default_batch_name)
       temperature = options[:temperature].to_i
       duration = options[:duration].to_i
       logger_type = options[:logger]
@@ -33,6 +33,10 @@ module MilkMaid
     default_task :monitor_batch
 
     no_commands do
+      def default_batch_name
+        Time.now.strftime("Batch-%Y-%m-%d %H:%M:%S")
+      end
+
       def get_sensor(sensor_type)
         sensor_type ? ::MilkMaid::TemperatureSensor.new : ::MilkMaid::MockTemperatureSensor.new(options[:temperature].to_i - 20, options[:temperature].to_i + 30)
       end
