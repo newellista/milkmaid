@@ -1,10 +1,11 @@
 require 'firebase'
+require 'pry'
 require 'yaml'
 
 module MilkMaid
   module FirebaseNotifier
     class BatchRecord
-      attr_accessor :name, :guid, :duration, :base_temperature, :batch_size, :status, :record
+      attr_accessor :name, :guid, :duration, :base_temperature, :batch_size, :status, :record, :id
 
       CACHE_THRESHOLD = 20
 
@@ -16,18 +17,20 @@ module MilkMaid
         batch_data.each { |key, value| send("#{key}=", value) }
         @status = 'Started'
 
-        self.create_remote_record
+        @id = create_remote_record
       end
 
       def create_remote_record
         @response = @firebase.push("batches", {
-          :guid => guid,
           :name => name,
+          :guid => guid,
           :duration => duration,
           :base_temperature => base_temperature,
           :batch_size => batch_size,
           :status => status
         })
+
+        @response.body['name']
       end
 
       def add_event(event_type, data = 0)
@@ -43,7 +46,7 @@ module MilkMaid
       end
 
       def close_batch
-        @firebase.update("/batches/#{guid}", :status => 'Completed')
+        @firebase.update("/batches/#{id}", :status => 'Completed')
       end
 
       def complete!
@@ -61,7 +64,7 @@ module MilkMaid
 
       def send_events!
         events.each do |event|
-          @firebase.push("/batches/#{guid}/events", event.to_h)
+          @firebase.push("/batches/#{id}/events", event.to_h)
         end
 
         @events = []
