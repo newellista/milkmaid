@@ -30,6 +30,8 @@ module MilkMaid
       puts e.message
     end
 
+    default_task :monitor_batch
+
     no_commands do
       def get_sensor(sensor_type)
         sensor_type ? ::MilkMaid::TemperatureSensor.new : ::MilkMaid::MockTemperatureSensor.new(options[:temperature].to_i - 20, options[:temperature].to_i + 30)
