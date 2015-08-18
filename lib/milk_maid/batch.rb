@@ -12,7 +12,7 @@ module MilkMaid
 
     def compare_temperature(current_temperature)
       notifier.log_temperature(current_temperature)
-      current_temperature.to_i >= temperature.to_i
+      current_temperature >= temperature
     end
 
     def start
@@ -36,6 +36,10 @@ module MilkMaid
       end
 
       notifier.batch_completed
+    end
+
+    def temperature=(value)
+      @temperature = value.to_f
     end
 
   private

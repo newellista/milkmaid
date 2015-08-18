@@ -17,7 +17,7 @@ module MilkMaid
 
     def reading
       return "Reading: No sensor attached" unless @sensor.reading
-      @sensor.reading
+      @sensor.reading.to_f
     end
   end
 

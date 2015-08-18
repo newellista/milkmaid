@@ -17,7 +17,7 @@ module MilkMaid
     option :nap, :type => :numeric, :required => false, :default => 5, :aliases => '-n'
     def monitor_batch
       batch_name = options.fetch(:batch_name, default_batch_name)
-      temperature = options[:temperature].to_i
+      temperature = options[:temperature].to_f
       duration = options[:duration].to_i * 60
       logger_type = options[:logger]
       sensor_type = options[:sensor]
@@ -40,7 +40,7 @@ module MilkMaid
       end
 
       def get_sensor(sensor_type)
-        sensor_type ? ::MilkMaid::TemperatureSensor.new : ::MilkMaid::MockTemperatureSensor.new(options[:temperature].to_i - 20, options[:temperature].to_i + 30)
+        sensor_type ? ::MilkMaid::TemperatureSensor.new : ::MilkMaid::MockTemperatureSensor.new(options[:temperature].to_f - 20, options[:temperature].to_f + 30)
       end
 
       def get_logger(logger_type)
