@@ -2,9 +2,7 @@ require 'securerandom'
 
 module MilkMaid
   class Batch
-    attr_accessor :name, :batch_guid, :temperature, :duration, :size, :notifier, :sensor
-
-    NAP_TIME = 5
+    attr_accessor :name, :batch_guid, :temperature, :duration, :size, :notifier, :sensor, :nap_time
 
     def initialize(options = {})
       options.each { |key, value| send("#{key}=", value) }
@@ -47,7 +45,7 @@ module MilkMaid
     end
 
     def take_a_nap
-      sleep NAP_TIME
+      sleep nap_time
     end
   end
 end

@@ -14,16 +14,18 @@ module MilkMaid
     option :duration, :type => :numeric, :required => false, :default => 30, :aliases => '-d'
     option :logger, :type => :string, :required => false, :default => 'Console', :aliases => '-l'
     option :sensor, :type => :boolean, :required => false, :default => true, :aliases => '-s'
+    option :nap, :type => :numeric, :required => false, :default => 5, :aliases => '-n'
     def monitor_batch
       batch_name = options.fetch(:batch_name, default_batch_name)
       temperature = options[:temperature].to_i
-      duration = options[:duration].to_i
+      duration = options[:duration].to_i * 60
       logger_type = options[:logger]
       sensor_type = options[:sensor]
+      nap_time = options[:nap].to_i
 
       sensor = get_sensor(sensor_type)
       notifier = get_logger(logger_type)
-      batch = ::MilkMaid::Batch.new(name: batch_name, temperature: temperature, duration: duration, notifier: notifier, sensor: sensor)
+      batch = ::MilkMaid::Batch.new(name: batch_name, temperature: temperature, duration: duration, notifier: notifier, sensor: sensor, nap_time: nap_time)
 
       batch.start
     rescue ::MilkMaid::SensorException => e
