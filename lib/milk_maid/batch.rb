@@ -35,6 +35,10 @@ module MilkMaid
         take_a_nap
       end
 
+      # log final temperature
+      current_temp = sensor.reading
+      notifier.log_temperature(current_temp)
+
       notifier.batch_completed
     end
 
