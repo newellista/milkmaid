@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'pry'
 
 module MilkMaid
   class Batch

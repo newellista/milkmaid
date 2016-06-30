@@ -12,7 +12,7 @@ module MilkMaid
     option :batch_name, :type => :string, :aliases => "-b"
     option :temperature, :type => :numeric, :required => :false, :default => 30, :aliases => '-t'
     option :duration, :type => :numeric, :required => false, :default => 30, :aliases => '-d'
-    option :logger, :type => :string, :required => false, :default => 'Console', :aliases => '-l'
+    option :logger, :type => :string, :required => false, :default => 'Spreadsheet', :aliases => '-l'
     option :sensor, :type => :boolean, :required => false, :default => true, :aliases => '-s'
     option :nap, :type => :numeric, :required => false, :default => 5, :aliases => '-n'
     def monitor_batch
@@ -26,6 +26,8 @@ module MilkMaid
       sensor = get_sensor(sensor_type)
       notifier = get_logger(logger_type)
       batch = ::MilkMaid::Batch.new(name: batch_name, temperature: temperature, duration: duration, notifier: notifier, sensor: sensor, nap_time: nap_time)
+
+      puts batch.inspect
 
       batch.start
     rescue ::MilkMaid::SensorException => e
@@ -49,6 +51,8 @@ module MilkMaid
           ::MilkMaid::ConsoleNotifier.new
         when 'WEB'
           ::MilkMaid::ParseNotifier.new
+        when 'SPREADSHEET'
+          ::MilkMaid::GoogleSheetNotifier.new
         end
       end
     end
