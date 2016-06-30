@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe ::Milkmaid::TemperatureSensor do
+describe ::MilkMaid::TemperatureSensor do
   before do
     allow_any_instance_of(Temperature).to receive(:display).and_return('TEST_SENSOR')
     allow_any_instance_of(Temperature).to receive(:name).and_return("SENSOR1")
     allow_any_instance_of(Temperature).to receive(:reading).and_return(40)
   end
 
-  let(:sensor) { ::Milkmaid::TemperatureSensor.new }
+  let(:sensor) { ::MilkMaid::TemperatureSensor.new }
 
   context 'test sensor' do
     it 'has a name' do
