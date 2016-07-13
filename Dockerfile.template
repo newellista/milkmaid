@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
     git \
     ca-certificates \
     build-essential \
-    ruby
+    ruby \
   && rm -rf /var/lib/apt/lists/*
 
 ADD . /app
-CMD modprobe w1-gpio
+CMD modprobe w1-gpio && modprobe w1-therm
