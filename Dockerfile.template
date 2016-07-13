@@ -1,15 +1,5 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie
-ENV LANG C.UTF-8
-ENV MIX_ENV production
-RUN apt-get update && apt-get install -y \
-    less \
-    vim \
-    tree \
-    curl \
-    unzip \
-    git \
-    ca-certificates \
-    ruby \
+RUN apt-get update && apt-get install -y ruby \
   && rm -rf /var/lib/apt/lists/*
 
 ADD . /app
