@@ -1,5 +1,4 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie
-ENV PATH $PATH
 ENV LANG C.UTF-8
 ENV MIX_ENV production
 RUN apt-get update && apt-get install -y \
@@ -10,9 +9,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     ca-certificates \
-    build-essential \
     ruby \
   && rm -rf /var/lib/apt/lists/*
 
 ADD . /app
-CMD modprobe w1-gpio && modprobe w1-therm & ruby my_app.rb
+CMD modprobe w1-gpio && modprobe w1-therm & ruby /app/my_app.rb
