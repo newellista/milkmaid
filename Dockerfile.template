@@ -15,4 +15,4 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 ADD . /app
-CMD modprobe w1-gpio && modprobe w1-therm & rackup -p 80
+CMD modprobe w1-gpio && modprobe w1-therm & ruby my_app.rb
